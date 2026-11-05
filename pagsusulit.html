@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pagsusulit – Pang-uri</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff5fa2; --pink-soft:#ffd6e8; --purple:#5b2aa6; --purple-soft:#e4d4fb;
+  --green:#1f7a2e; --green-soft:#d9f5c3; --orange:#f58a1f; --yellow-soft:#fff0b8;
+  --blue-soft:#cfe9ff; --teal-soft:#c9f3e6; --ink:#3a2a1a;
+  --font-d:'Baloo 2','Fredoka','Trebuchet MS',sans-serif;
+  --font-b:'Fredoka','Trebuchet MS',sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{color-scheme:light}
+body{
+  font-family:var(--font-b);color:var(--ink);min-height:100vh;
+  background:radial-gradient(circle at 20% 10%,#fff 0,transparent 35%),
+             linear-gradient(180deg,#ffd9ea 0%,#ffeaf4 40%,#fff6fb 70%,#ffd9ea 100%);
+}
+.page{max-width:900px;margin:0 auto;padding:16px 16px 28px}
+img{max-width:100%;display:block}
+:focus-visible{outline:4px solid var(--purple);outline-offset:3px}
+
+/* floating home button */
+.home-fab{
+  position:fixed;top:14px;left:14px;z-index:50;display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-d);font-weight:800;font-size:clamp(15px,2.6vw,20px);text-decoration:none;color:#fff;
+  background:linear-gradient(#8a55d6,#5b2aa6);border:4px solid #fff;border-radius:999px;padding:8px 20px;
+  box-shadow:0 5px 0 rgba(0,0,0,.25);transition:transform .15s,box-shadow .15s;
+}
+.home-fab:hover{transform:translateY(-3px);box-shadow:0 8px 0 rgba(0,0,0,.25)}
+.home-fab:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.home-fab svg{width:1em;height:1em;fill:#ffd54a;flex:0 0 auto}
+
+/* header */
+.hero{display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;gap:8px;text-align:center}
+.hero img{width:100%;aspect-ratio:1/1;object-fit:contain}
+.hero h1{font-family:var(--font-d);font-weight:800;line-height:.95;font-size:clamp(30px,7vw,64px)}
+.hero h1 .t1{display:block;color:var(--purple);-webkit-text-stroke:2px #fff;paint-order:stroke fill;font-size:.66em}
+.hero h1 .t2{display:block;color:var(--pink);-webkit-text-stroke:3px #fff;paint-order:stroke fill;text-shadow:0 5px 0 var(--purple)}
+.ribbon{
+  display:block;width:fit-content;margin:6px auto 18px;padding:6px 38px;
+  background:linear-gradient(#ffd54a,#f7b500);color:var(--ink);font-family:var(--font-d);
+  font-weight:700;font-size:clamp(16px,3.4vw,26px);border:3px solid #fff;border-radius:6px;
+  box-shadow:0 4px 0 #c88a00;clip-path:polygon(0 0,100% 0,96% 50%,100% 100%,0 100%,4% 50%);
+}
+
+/* pills */
+.pill{
+  display:block;width:fit-content;margin:26px auto 12px;padding:4px 34px;border-radius:999px;
+  font-family:var(--font-d);font-weight:800;font-size:clamp(20px,4.2vw,34px);border:4px solid #fff;
+  box-shadow:0 4px 0 rgba(0,0,0,.12);text-align:center;
+}
+.pill.purple{background:linear-gradient(#8a55d6,#5b2aa6);color:#fff}
+.pill.orange{background:#ffdca8;color:#a35b00;border-color:#f6a93b;border-style:dashed}
+.pill.pinkp{background:var(--pink-soft);color:var(--purple);border-color:#ff8cc0}
+.spark{display:inline-block;width:.8em;height:.8em;vertical-align:middle;fill:#ffd54a}
+
+/* generic card */
+.card{
+  background:#fff;border:3px solid #b48df0;border-radius:26px;padding:20px 22px;
+  box-shadow:0 5px 0 rgba(0,0,0,.10);margin:14px 0;font-size:clamp(15px,2.6vw,20px);line-height:1.5;
+}
+.card p+p{margin-top:10px}
+.card b{color:var(--purple)}
+ul.clean{list-style:none;padding:0;margin:8px 0}
+ul.clean li{padding-left:1.6em;position:relative;margin:4px 0}
+ul.clean li::before{content:"";position:absolute;left:.2em;top:.55em;width:.7em;height:.7em;border-radius:50%;background:#f6a93b}
+
+/* exam */
+.q{
+  background:#fff;border:3px solid #f6a93b;border-radius:26px;padding:18px 20px;margin:16px 0;
+  box-shadow:0 5px 0 rgba(0,0,0,.10);
+}
+.q .qn{font-family:var(--font-d);font-weight:800;color:var(--purple);font-size:clamp(15px,2.6vw,20px)}
+.q .qt{font-size:clamp(16px,2.8vw,21px);font-weight:600;margin:6px 0 12px;line-height:1.4}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.choices{grid-template-columns:1fr}}
+.choice{
+  font-family:var(--font-b);font-size:clamp(15px,2.6vw,19px);text-align:left;cursor:pointer;
+  border:3px solid #ffe2b8;background:#fffaf2;border-radius:16px;padding:10px 14px;color:var(--ink);
+  display:flex;align-items:center;gap:10px;transition:transform .12s,box-shadow .12s,background .12s;
+  box-shadow:0 4px 0 rgba(0,0,0,.10);
+}
+.choice:hover{transform:translateY(-2px);background:#fff2dc}
+.choice:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.10)}
+.choice .letter{
+  flex:0 0 auto;width:1.9em;height:1.9em;border-radius:50%;display:grid;place-items:center;
+  background:var(--purple);color:#fff;font-family:var(--font-d);font-weight:800;font-size:.9em;
+}
+.choice.picked{background:#e6e0ff;border-color:#8a55d6}
+.choice.good{background:#e6f9d6;border-color:#7bc85a}
+.choice.bad{background:#ffe0e8;border-color:#ff8cc0}
+.choice:disabled{cursor:default;opacity:1}
+.why{
+  display:none;margin-top:12px;background:#fff8d6;border:3px dashed #f7c85a;border-radius:16px;
+  padding:10px 14px;font-size:clamp(14px,2.4vw,18px);line-height:1.45;
+}
+.why b{color:var(--orange)}
+.why.show{display:block}
+
+/* submit + results */
+.submitbar{display:flex;justify-content:center;margin:22px 0 6px}
+.btn{
+  font-family:var(--font-d);font-weight:800;font-size:clamp(18px,3vw,26px);text-decoration:none;
+  border:4px solid #fff;border-radius:999px;padding:10px 40px;cursor:pointer;color:#fff;
+  transition:transform .15s,box-shadow .15s;
+}
+.btn.pink{background:linear-gradient(#ff7ab5,#ff5fa2);box-shadow:0 6px 0 #c93d7a}
+.btn.green{background:linear-gradient(#4fb03c,#1f7a2e);box-shadow:0 6px 0 #135a1e}
+.btn:hover{transform:translateY(-3px)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+
+.result{
+  display:none;background:linear-gradient(#8a55d6,#5b2aa6);border:4px solid #fff;border-radius:30px;
+  color:#fff;padding:22px;margin:24px 0 10px;box-shadow:0 6px 0 rgba(0,0,0,.18);
+}
+.result.show{display:block}
+.result h2{font-family:var(--font-d);font-size:clamp(20px,4vw,32px);text-align:center;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{background:rgba(255,255,255,.14);border:3px solid rgba(255,255,255,.35);border-radius:20px;padding:12px 8px;text-align:center}
+.stat .k{font-size:clamp(12px,2.2vw,16px);opacity:.95;line-height:1.2}
+.stat .v{font-family:var(--font-d);font-weight:800;font-size:clamp(22px,5vw,40px);line-height:1.1;color:#ffd54a}
+.result .feedback{text-align:center;font-size:clamp(15px,2.6vw,20px);line-height:1.5;margin-bottom:8px}
+.review{background:#fff;border:3px solid #ff8cc0;border-radius:22px;padding:14px 16px;margin:14px 0 0;color:var(--ink)}
+.review h3{font-family:var(--font-d);color:var(--pink);font-size:clamp(16px,3vw,22px);margin-bottom:8px}
+.review .item{font-size:clamp(14px,2.4vw,18px);line-height:1.5;margin:8px 0}
+.review .item b{color:var(--green)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:18px 0 4px}
+
+@media (max-width:640px){
+  .home-fab{top:10px;left:10px;padding:6px 14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="sp" viewBox="0 0 24 24"><path d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M12 2 1 12h3v9h6v-6h4v6h6v-9h3z"/></symbol>
+</svg>
+
+<a class="home-fab" href="index.html" aria-label="Bumalik sa Home Page"><svg><use href="#home"/></svg>Home</a>
+
+<main class="page">
+  <header class="hero">
+    <img data-img src="images/icon-pagsusulit.png" alt="Trophy">
+    <h1><span class="t1">MGA PAGSUSULIT –</span><span class="t2">SUBUKIN!</span></h1>
+    <img data-img src="images/star.png" alt="Nakangiting bituin">
+  </header>
+  <span class="ribbon">Gaano Mo Kakilala ang Pang-uri?</span>
+
+  <span class="pill purple">Panimula</span>
+  <section class="card">
+    <p>Oras na upang subukin ang iyong natutuhan tungkol sa pang-uri! Sa pagsusulit na ito, susukatin ang iyong kaalaman tungkol sa kahulugan, mga uri, antas, at wastong paggamit ng pang-uri sa mga pangungusap.</p>
+    <p>Basahin nang mabuti ang bawat tanong at piliin ang pinakamahusay na sagot.</p>
+  </section>
+
+  <span class="pill orange"><svg class="spark"><use href="#sp"/></svg> Mga Panuto <svg class="spark"><use href="#sp"/></svg></span>
+  <section class="card">
+    <ul class="clean">
+      <li>Basahin nang mabuti ang bawat katanungan.</li>
+      <li>Piliin lamang ang isang tamang sagot.</li>
+      <li>Bawat tamang sagot ay may katumbas na isang puntos.</li>
+      <li>Sagutan ang lahat ng sampung tanong.</li>
+      <li>Tingnan ang iyong iskor pagkatapos ng pagsusulit.</li>
+    </ul>
+  </section>
+
+  <span class="pill pinkp"><svg class="spark"><use href="#sp"/></svg> Mga Tanong sa Pagsusulit <svg class="spark"><use href="#sp"/></svg></span>
+
+  <div id="quiz"></div>
+
+  <div class="submitbar">
+    <button class="btn pink" id="submitBtn" type="button">Isumite ang Sagot</button>
+  </div>
+
+  <section class="result" id="result">
+    <h2 id="resultTitle">Resulta ng Pagsusulit</h2>
+    <div class="stats">
+      <div class="stat"><div class="k">Kabuuang Iskor</div><div class="v" id="statScore">0/10</div></div>
+      <div class="stat"><div class="k">Tamang Sagot</div><div class="v" id="statRight">0</div></div>
+      <div class="stat"><div class="k">Maling Sagot</div><div class="v" id="statWrong">0</div></div>
+    </div>
+    <p class="feedback" id="feedback"></p>
+    <div class="review" id="review"></div>
+    <div class="actions">
+      <a class="btn pink" href="pagsusulit.html">Subukan Muli</a>
+      <a class="btn green" href="index.html">Bumalik sa Home Page</a>
+    </div>
+  </section>
+
+  <div class="actions">
+    <a class="btn green" href="index.html">Bumalik sa Home Page</a>
+  </div>
+</main>
+
+<script>
+const PH='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect x="6" y="6" width="188" height="188" rx="28" fill="#ffffff" fill-opacity=".55" stroke="#b48df0" stroke-width="4" stroke-dasharray="10 8"/><circle cx="70" cy="75" r="16" fill="#b48df0"/><path d="M24 160l50-52 32 32 26-24 44 44z" fill="#b48df0"/></svg>');
+document.querySelectorAll('img[data-img]').forEach(i=>{i.onerror=()=>{i.onerror=null;i.src=PH}});
+
+const QS=[
+  {t:'Ano ang pang-uri?',
+   c:['Salitang tumutukoy sa kilos.','Salitang naglalarawan sa pangngalan at panghalip.','Salitang pamalit sa pangngalan.','Salitang nag-uugnay ng mga pangungusap.'], a:1,
+   w:'Ang pang-uri ay naglalarawan sa pangngalan at panghalip.'},
+  {t:'Alin sa mga sumusunod ang pang-uri?',
+   c:['Tumakbo','Maganda','Kumain','Sumulat'], a:1,
+   w:'Ang maganda ay salitang naglalarawan, kaya ito ay pang-uri.'},
+  {t:'Tukuyin ang pang-uri sa pangungusap: "Mabango ang bulaklak sa hardin."',
+   c:['Bulaklak','Hardin','Mabango','Ang'], a:2,
+   w:'Ang mabango ay naglalarawan sa bulaklak.'},
+  {t:'Anong uri ng pang-uri ang salitang "matamis"?',
+   c:['Pang-uring Pamilang','Pang-uring Pantangi','Pang-uring Panlarawan','Panghalip'], a:2,
+   w:'Ang matamis ay naglalarawan ng katangian, kaya pang-uring panlarawan ito.'},
+  {t:'Alin sa mga sumusunod ang pang-uring pamilang?',
+   c:['Maganda','Tatlo','Mabait','Malinis'], a:1,
+   w:'Ang tatlo ay nagsasaad ng bilang, kaya ito ay pang-uring pamilang.'},
+  {t:'Anong uri ng pang-uri ang salitang "Pilipino" sa pariralang "kulturang Pilipino"?',
+   c:['Panlarawan','Pamilang','Pantangi','Panghalip'], a:2,
+   w:'Ang Pilipino ay nagmula sa pangngalang pantanging Pilipinas, kaya ito ay pang-uring pantangi.'},
+  {t:'Anong antas ng pang-uri ang salitang "mas matangkad" sa pangungusap na "Mas matangkad si Ana kaysa kay Mia"?',
+   c:['Lantay','Pahambing','Pasukdol','Pantangi'], a:1,
+   w:'Ang mas matangkad ay naghahambing ng dalawa, kaya ito ay pahambing.'},
+  {t:'Alin sa mga pangungusap ang gumagamit ng pang-uring pasukdol?',
+   c:['Maganda ang damit.','Mas maganda ang damit ni Ana kaysa kay Mia.','Pinakamaganda ang damit ni Ana sa lahat.','May dalawang damit si Ana.'], a:2,
+   w:'Ang pinakamaganda ay nagpapakita ng pinakamataas na antas, kaya ito ay pasukdol.'},
+  {t:'Alin ang wastong pangungusap na may pang-uri?',
+   c:['Ang bata ay mabait.','Ang bata ay tumakbo kahapon.','Ang bata ay naglalaro sa labas.','Ang bata ay kumakain ng tinapay.'], a:0,
+   w:'Ang mabait sa unang pangungusap ay pang-uring naglalarawan sa bata.'},
+  {t:'Bakit mahalaga ang pang-uri sa pangungusap?',
+   c:['Upang palitan ang lahat ng pangngalan.','Upang magpakita lamang ng kilos.','Upang magbigay ng paglalarawan at karagdagang impormasyon.','Upang gawing mas mahaba ang pangungusap.'], a:2,
+   w:'Ang pang-uri ay nagbibigay ng paglalarawan at karagdagang impormasyon.'}
+];
+const LETTER=['A','B','C','D'];
+const quiz=document.getElementById('quiz');
+const picked=[];
+
+QS.forEach((item,i)=>{
+  const q=document.createElement('section');
+  q.className='q';
+  q.innerHTML=`<div class="qn">Tanong ${i+1}</div>
+    <div class="qt">${item.t}</div>
+    <div class="choices"></div>
+    <div class="why"></div>`;
+  const box=q.querySelector('.choices');
+  item.c.forEach((txt,ci)=>{
+    const b=document.createElement('button');
+    b.className='choice';
+    b.type='button';
+    b.innerHTML=`<span class="letter">${LETTER[ci]}</span><span>${txt}</span>`;
+    b.addEventListener('click',()=>{
+      if(quiz.dataset.done) return;
+      picked[i]=ci;
+      box.querySelectorAll('.choice').forEach((x,xi)=>{
+        x.classList.toggle('picked',xi===ci);
+      });
+    });
+    box.appendChild(b);
+  });
+  quiz.appendChild(q);
+});
+
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  if(quiz.dataset.done) return;
+  quiz.dataset.done='1';
+  let score=0;
+  const review=document.getElementById('review');
+  review.innerHTML='';
+
+  QS.forEach((item,i)=>{
+    const q=quiz.children[i];
+    const box=q.querySelector('.choices');
+    const answer=picked[i];
+    const right=answer===item.a;
+    if(right) score++;
+
+    box.querySelectorAll('.choice').forEach((x,xi)=>{
+      x.disabled=true;
+      x.classList.remove('picked');
+      if(xi===item.a) x.classList.add('good');
+      else if(xi===answer) x.classList.add('bad');
+    });
+
+    const why=q.querySelector('.why');
+    if(right){
+      why.innerHTML=`<b>Tamang sagot!</b> ${LETTER[item.a]}. ${item.c[item.a]}.`;
+    }else{
+      why.innerHTML=`<b>Mali.</b> Tamang sagot: ${LETTER[item.a]}. ${item.c[item.a]}. ${item.w}`;
+      const div=document.createElement('div');
+      div.className='item';
+      const chosen=answer===undefined?'walang napili':`${LETTER[answer]}. ${item.c[answer]}`;
+      div.innerHTML=`<b>Tanong ${i+1}:</b> Ang sagot mo ay <i>${chosen}</i>. Tamang sagot: ${LETTER[item.a]}. ${item.c[item.a]}. ${item.w}`;
+      review.appendChild(div);
+    }
+    why.classList.add('show');
+  });
+
+  document.getElementById('statScore').textContent=score+'/10';
+  document.getElementById('statRight').textContent=score;
+  document.getElementById('statWrong').textContent=(10-score);
+
+  let fb;
+  if(score>=9) fb='Napakahusay! Naipakita mo ang iyong kaalaman tungkol sa pang-uri. Ipagpatuloy ang pagbabasa at pagsasanay upang mas lalo mong mapahusay ang paggamit ng mga salitang naglalarawan!';
+  else if(score>=6) fb='Magaling! Malinaw ang iyong pag-unawa sa pang-uri. Balikan lamang ang ilang paksa at magpatuloy sa pagsasanay.';
+  else fb='Huwag sumuko! Balikan ang aralin tungkol sa pang-uri at subukan muli. Bawat pagsasanay ay nagpapahusay sa iyong kaalaman.';
+  document.getElementById('feedback').textContent=fb;
+
+  const r=document.getElementById('result');
+  r.classList.add('show');
+  r.scrollIntoView({behavior:'smooth',block:'start'});
+});
+</script>
+</body>
+</html>

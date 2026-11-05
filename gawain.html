@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mga Gawain – Pang-uri Detective</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff5fa2; --pink-soft:#ffd6e8; --purple:#5b2aa6; --purple-soft:#e4d4fb;
+  --green:#1f7a2e; --green-soft:#d9f5c3; --orange:#f58a1f; --yellow-soft:#fff0b8;
+  --blue-soft:#cfe9ff; --teal-soft:#c9f3e6; --ink:#3a2a1a;
+  --font-d:'Baloo 2','Fredoka','Trebuchet MS',sans-serif;
+  --font-b:'Fredoka','Trebuchet MS',sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{color-scheme:light}
+body{
+  font-family:var(--font-b);color:var(--ink);min-height:100vh;
+  background:radial-gradient(circle at 20% 10%,#fff 0,transparent 35%),
+             linear-gradient(180deg,#ffd9ea 0%,#ffeaf4 40%,#fff6fb 70%,#ffd9ea 100%);
+}
+.page{max-width:900px;margin:0 auto;padding:16px 16px 28px}
+img{max-width:100%;display:block}
+:focus-visible{outline:4px solid var(--purple);outline-offset:3px}
+
+/* floating home button */
+.home-fab{
+  position:fixed;top:14px;left:14px;z-index:50;display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-d);font-weight:800;font-size:clamp(15px,2.6vw,20px);text-decoration:none;color:#fff;
+  background:linear-gradient(#8a55d6,#5b2aa6);border:4px solid #fff;border-radius:999px;padding:8px 20px;
+  box-shadow:0 5px 0 rgba(0,0,0,.25);transition:transform .15s,box-shadow .15s;
+}
+.home-fab:hover{transform:translateY(-3px);box-shadow:0 8px 0 rgba(0,0,0,.25)}
+.home-fab:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.home-fab svg{width:1em;height:1em;fill:#ffd54a;flex:0 0 auto}
+
+/* header */
+.hero{display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;gap:8px;text-align:center}
+.hero img{width:100%;aspect-ratio:1/1;object-fit:contain}
+.hero h1{font-family:var(--font-d);font-weight:800;line-height:.95;font-size:clamp(30px,7vw,64px)}
+.hero h1 .t1{display:block;color:var(--purple);-webkit-text-stroke:2px #fff;paint-order:stroke fill;font-size:.66em}
+.hero h1 .t2{display:block;color:var(--pink);-webkit-text-stroke:3px #fff;paint-order:stroke fill;text-shadow:0 5px 0 var(--purple)}
+.ribbon{
+  display:block;width:fit-content;margin:6px auto 18px;padding:6px 38px;
+  background:linear-gradient(#ffd54a,#f7b500);color:var(--ink);font-family:var(--font-d);
+  font-weight:700;font-size:clamp(16px,3.4vw,26px);border:3px solid #fff;border-radius:6px;
+  box-shadow:0 4px 0 #c88a00;clip-path:polygon(0 0,100% 0,96% 50%,100% 100%,0 100%,4% 50%);
+}
+
+/* pills */
+.pill{
+  display:block;width:fit-content;margin:26px auto 12px;padding:4px 34px;border-radius:999px;
+  font-family:var(--font-d);font-weight:800;font-size:clamp(20px,4.2vw,34px);border:4px solid #fff;
+  box-shadow:0 4px 0 rgba(0,0,0,.12);text-align:center;
+}
+.pill.purple{background:linear-gradient(#8a55d6,#5b2aa6);color:#fff}
+.pill.teal{background:var(--teal-soft);color:#126b52;border-color:#6fd3b6;border-style:dashed}
+.pill.pinkp{background:var(--pink-soft);color:var(--purple);border-color:#ff8cc0}
+.spark{display:inline-block;width:.8em;height:.8em;vertical-align:middle;fill:#ffd54a}
+
+/* generic card */
+.card{
+  background:#fff;border:3px solid #b48df0;border-radius:26px;padding:20px 22px;
+  box-shadow:0 5px 0 rgba(0,0,0,.10);margin:14px 0;font-size:clamp(15px,2.6vw,20px);line-height:1.5;
+}
+.card p+p{margin-top:10px}
+.card b{color:var(--purple)}
+ul.clean{list-style:none;padding:0;margin:8px 0}
+ul.clean li{padding-left:1.6em;position:relative;margin:4px 0}
+ul.clean li::before{content:"";position:absolute;left:.2em;top:.55em;width:.7em;height:.7em;border-radius:50%;background:#6fd3b6}
+
+/* quiz */
+.q{
+  background:#fff;border:3px solid #6fd3b6;border-radius:26px;padding:18px 20px;margin:16px 0;
+  box-shadow:0 5px 0 rgba(0,0,0,.10);
+}
+.q .qn{font-family:var(--font-d);font-weight:800;color:var(--purple);font-size:clamp(15px,2.6vw,20px)}
+.q .qt{font-size:clamp(16px,2.8vw,21px);font-weight:600;margin:6px 0 12px;line-height:1.4}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.choices{grid-template-columns:1fr}}
+.choice{
+  font-family:var(--font-b);font-size:clamp(15px,2.6vw,19px);text-align:left;cursor:pointer;
+  border:3px solid #cfe9ff;background:#f4faff;border-radius:16px;padding:10px 14px;color:var(--ink);
+  display:flex;align-items:center;gap:10px;transition:transform .12s,box-shadow .12s,background .12s;
+  box-shadow:0 4px 0 rgba(0,0,0,.10);
+}
+.choice:hover{transform:translateY(-2px);background:#e8f4ff}
+.choice:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.10)}
+.choice .letter{
+  flex:0 0 auto;width:1.9em;height:1.9em;border-radius:50%;display:grid;place-items:center;
+  background:var(--purple);color:#fff;font-family:var(--font-d);font-weight:800;font-size:.9em;
+}
+.choice.good{background:#e6f9d6;border-color:#7bc85a}
+.choice.bad{background:#ffe0e8;border-color:#ff8cc0}
+.choice:disabled{cursor:default;opacity:1}
+.why{
+  display:none;margin-top:12px;background:#fff8d6;border:3px dashed #f7c85a;border-radius:16px;
+  padding:10px 14px;font-size:clamp(14px,2.4vw,18px);line-height:1.45;
+}
+.why b{color:var(--orange)}
+.why.show{display:block}
+
+/* score */
+.score{
+  background:linear-gradient(#8a55d6,#5b2aa6);border:4px solid #fff;border-radius:30px;color:#fff;
+  padding:20px;margin:24px 0 10px;text-align:center;box-shadow:0 6px 0 rgba(0,0,0,.18);
+}
+.score .big{font-family:var(--font-d);font-weight:800;font-size:clamp(26px,6vw,48px);line-height:1}
+.score .big b{color:#ffd54a}
+.score p{margin-top:10px;font-size:clamp(15px,2.6vw,20px)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:14px 0 4px}
+.btn{
+  font-family:var(--font-d);font-weight:800;font-size:clamp(16px,2.8vw,22px);text-decoration:none;
+  border:4px solid #fff;border-radius:999px;padding:8px 30px;cursor:pointer;color:#fff;
+  transition:transform .15s,box-shadow .15s;
+}
+.btn.pink{background:linear-gradient(#ff7ab5,#ff5fa2);box-shadow:0 6px 0 #c93d7a}
+.btn.green{background:linear-gradient(#4fb03c,#1f7a2e);box-shadow:0 6px 0 #135a1e}
+.btn:hover{transform:translateY(-3px)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+
+/* reflection form */
+.form{display:grid;gap:16px;margin:14px 0}
+.field{background:#fff;border:3px solid #6fd3b6;border-radius:26px;padding:16px 18px;box-shadow:0 5px 0 rgba(0,0,0,.10)}
+.field label{display:block;font-weight:600;font-size:clamp(15px,2.6vw,20px);line-height:1.45;margin-bottom:10px}
+.field label .n{font-family:var(--font-d);color:var(--purple);font-weight:800}
+.field textarea{
+  width:100%;min-height:90px;resize:vertical;font-family:var(--font-b);font-size:clamp(15px,2.6vw,19px);
+  color:var(--ink);border:3px dashed #9cc4ee;border-radius:16px;padding:10px 12px;background:#f7fbff;line-height:1.45;
+}
+.field textarea:focus{outline:none;border-color:var(--purple);background:#fff}
+.sub{display:flex;justify-content:center;margin:8px 0 4px}
+.sub button{
+  font-family:var(--font-d);font-weight:800;font-size:clamp(18px,3vw,26px);color:#fff;cursor:pointer;
+  background:linear-gradient(#ff7ab5,#ff5fa2);border:4px solid #fff;border-radius:999px;padding:10px 40px;
+  box-shadow:0 6px 0 #c93d7a;transition:transform .15s,box-shadow .15s;
+}
+.sub button:hover{transform:translateY(-3px)}
+.sub button:active{transform:translateY(3px);box-shadow:0 2px 0 #c93d7a}
+
+.finish{
+  display:none;background:linear-gradient(#8a55d6,#5b2aa6);border:4px solid #fff;border-radius:30px;
+  color:#fff;padding:22px;margin:22px 0 10px;text-align:center;box-shadow:0 6px 0 rgba(0,0,0,.18);
+  font-size:clamp(15px,2.6vw,20px);line-height:1.5;
+}
+.finish.show{display:block}
+.finish b{color:#ffd54a}
+
+@media (max-width:640px){
+  .home-fab{top:10px;left:10px;padding:6px 14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="sp" viewBox="0 0 24 24"><path d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M12 2 1 12h3v9h6v-6h4v6h6v-9h3z"/></symbol>
+</svg>
+
+<a class="home-fab" href="index.html" aria-label="Bumalik sa Home Page"><svg><use href="#home"/></svg>Home</a>
+
+<main class="page">
+  <header class="hero">
+    <img data-img src="images/icon-gawain.png" alt="Kuwaderno at lapis">
+    <h1><span class="t1">MGA GAWAIN –</span><span class="t2">DETECTIVE</span></h1>
+    <img data-img src="images/girl-reading.png" alt="Batang babaeng nagbabasa">
+  </header>
+  <span class="ribbon">Pang-uri Detective: Hanapin ang Salitang Naglalarawan!</span>
+
+  <span class="pill purple">Panimula</span>
+  <section class="card">
+    <p>Maligayang pagdating sa <b>Pang-uri Detective</b>! Sa gawaing ito, magiging isang batang detektib ka na maghahanap ng mga salitang naglalarawan sa loob ng mga pangungusap.</p>
+    <p>Basahin ang bawat pangungusap, tukuyin ang pang-uri, at piliin ang tamang sagot. Maaari mong gawin ang aktibidad gamit ang iyong cellphone, tablet, o computer. Hindi na kailangan ng anumang materyales o pisikal na demonstrasyon dahil maaari mong sagutan ang lahat ng gawain direkta sa website.</p>
+  </section>
+
+  <span class="pill teal"><svg class="spark"><use href="#sp"/></svg> Mga Layunin sa Pagkatuto <svg class="spark"><use href="#sp"/></svg></span>
+  <section class="card">
+    <p>Pagkatapos makumpleto ang gawaing ito, ang mga mag-aaral ay inaasahang:</p>
+    <ul class="clean">
+      <li>Matukoy ang mga pang-uri sa mga simpleng pangungusap.</li>
+      <li>Makapili ng angkop na pang-uri batay sa kahulugan ng pangungusap.</li>
+      <li>Makilala ang pagkakaiba ng pang-uring panlarawan, pamilang, at pantangi.</li>
+      <li>Makabuo ng sariling pangungusap gamit ang wastong pang-uri.</li>
+    </ul>
+  </section>
+
+  <span class="pill teal">Paano Laruin?</span>
+  <section class="card">
+    <ul class="clean">
+      <li>Basahin ang pangungusap na makikita sa screen.</li>
+      <li>Hanapin ang salitang naglalarawan sa pangngalan o panghalip.</li>
+      <li>Piliin ang tamang sagot.</li>
+      <li>Lalabas agad ang paliwanag upang malaman kung tama ang iyong sagot.</li>
+      <li>Magpatuloy hanggang matapos ang limang tanong.</li>
+      <li>Tingnan ang iyong kabuuang iskor at feedback.</li>
+    </ul>
+  </section>
+
+  <span class="pill pinkp"><svg class="spark"><use href="#sp"/></svg> Online Activity: Hanapin ang Pang-uri! <svg class="spark"><use href="#sp"/></svg></span>
+
+  <div id="quiz"></div>
+
+  <div class="score" id="score" hidden>
+    <div class="big">Iskor: <b><span id="sc">0</span></b> / 5</div>
+    <p id="verdict"></p>
+  </div>
+
+  <div class="actions">
+    <a class="btn pink" href="gawain.html">Subukan Muli</a>
+    <a class="btn green" href="index.html">Bumalik sa Home Page</a>
+  </div>
+
+  <span class="pill teal"><svg class="spark"><use href="#sp"/></svg> Gawain sa Pagninilay <svg class="spark"><use href="#sp"/></svg></span>
+  <section class="card">
+    <p>Ngayon naman ay pagkakataon mong ipakita ang iyong sariling pag-unawa sa pang-uri. Sagutin ang mga tanong at gumawa ng sariling mga pangungusap gamit ang iba't ibang salitang naglalarawan.</p>
+    <p><b>Mga panuto:</b> Basahin at unawain ang bawat tanong. Isulat ang iyong sagot sa nakalaang bahagi. Gumamit ng sariling mga ideya at halimbawa. Tiyaking tama ang paggamit ng mga pang-uri sa iyong mga pangungusap.</p>
+  </section>
+
+  <form class="form" id="reflect">
+    <div class="field">
+      <label for="r1"><span class="n">1.</span> Magbigay ng limang halimbawa ng pang-uri na ginagamit mo sa pang-araw-araw na buhay.</label>
+      <textarea id="r1" placeholder="Isulat ang iyong sagot dito..."></textarea>
+    </div>
+    <div class="field">
+      <label for="r2"><span class="n">2.</span> Alin sa tatlong uri ng pang-uri ang pinakamadali mong naunawaan? Bakit?</label>
+      <textarea id="r2" placeholder="Isulat ang iyong sagot dito..."></textarea>
+    </div>
+    <div class="field">
+      <label for="r3a"><span class="n">3.</span> Bumuo ng tatlong pangungusap gamit ang iba't ibang pang-uri.</label>
+      <textarea id="r3a" placeholder="Pangungusap 1: ..."></textarea>
+      <textarea id="r3b" placeholder="Pangungusap 2: ..." style="margin-top:10px"></textarea>
+      <textarea id="r3c" placeholder="Pangungusap 3: ..." style="margin-top:10px"></textarea>
+    </div>
+    <div class="field">
+      <label for="r4"><span class="n">4.</span> Bakit mahalagang gumamit ng pang-uri sa pagsasalita at pagsusulat?</label>
+      <textarea id="r4" placeholder="Isulat ang iyong sagot dito..."></textarea>
+    </div>
+    <div class="field">
+      <label for="r5"><span class="n">5.</span> Ano ang pinakamahalagang aral na natutuhan mo tungkol sa pang-uri?</label>
+      <textarea id="r5" placeholder="Isulat ang iyong sagot dito..."></textarea>
+    </div>
+    <div class="sub"><button type="submit">Submit Activity</button></div>
+  </form>
+
+  <div class="finish" id="finish">
+    <p><b>Binabati kita!</b> Matagumpay mong natapos ang Pang-uri Learning Challenge! Naipakita mo ang iyong kakayahang kumilala, gumamit, at bumuo ng mga pangungusap gamit ang pang-uri. Tandaan na ang mga salitang naglalarawan ay nagbibigay-linaw at kulay sa ating mga ideya. Ipagpatuloy ang pagkatuto at gamitin ang iyong kaalaman sa araw-araw!</p>
+  </div>
+
+  <div class="actions">
+    <a class="btn green" href="index.html">Bumalik sa Home Page</a>
+  </div>
+</main>
+
+<script>
+const PH='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect x="6" y="6" width="188" height="188" rx="28" fill="#ffffff" fill-opacity=".55" stroke="#b48df0" stroke-width="4" stroke-dasharray="10 8"/><circle cx="70" cy="75" r="16" fill="#b48df0"/><path d="M24 160l50-52 32 32 26-24 44 44z" fill="#b48df0"/></svg>');
+document.querySelectorAll('img[data-img]').forEach(i=>{i.onerror=()=>{i.onerror=null;i.src=PH}});
+
+const QS=[
+  {t:'Alin ang pang-uri?', q:'"Ang aso ay mabait."',
+   c:['Aso','Mabait','Ang'], a:1,
+   w:'Ang mabait ay naglalarawan sa aso.'},
+  {t:'Alin ang salitang naglalarawan?', q:'"Masarap ang nilutong adobo."',
+   c:['Nilutong','Adobo','Masarap'], a:2,
+   w:'Ang masarap ay naglalarawan sa lasa ng adobo.'},
+  {t:'Alin ang pang-uri?', q:'"Ang mga bata ay masaya."',
+   c:['Bata','Masaya','Ang'], a:1,
+   w:'Ang masaya ay naglalarawan sa kalagayan ng mga bata.'},
+  {t:'Alin ang pang-uring pamilang?', q:'"Si Carlo ang ikalawang mag-aaral na dumating."',
+   c:['Carlo','Mag-aaral','Ikalawang'], a:2,
+   w:'Ang ikalawang ay nagsasaad ng pagkakasunod-sunod, kaya pang-uring pamilang ito.'},
+  {t:'Alin ang pang-uring pantangi?', q:'"Ipinagmamalaki namin ang pagkain Cebuano."',
+   c:['Ipinagmamalaki','Pagkaing','Cebuano'], a:2,
+   w:'Ang Cebuano ay nagmula sa pangngalang pantanging Cebu at naglalarawan sa pagkain.'}
+];
+const LETTER=['A','B','C','D'];
+const quiz=document.getElementById('quiz');
+let answered=0, score=0;
+
+QS.forEach((item,i)=>{
+  const q=document.createElement('section');
+  q.className='q';
+  q.innerHTML=`<div class="qn">Tanong ${i+1} – ${item.t}</div>
+    <div class="qt">${item.q}</div>
+    <div class="choices"></div>
+    <div class="why"></div>`;
+  const box=q.querySelector('.choices');
+  item.c.forEach((txt,ci)=>{
+    const b=document.createElement('button');
+    b.className='choice';
+    b.type='button';
+    b.innerHTML=`<span class="letter">${LETTER[ci]}</span><span>${txt}</span>`;
+    b.addEventListener('click',()=>{
+      if(q.dataset.done) return;
+      q.dataset.done='1';
+      answered++;
+      const right=ci===item.a;
+      if(right) score++;
+      box.querySelectorAll('.choice').forEach((x,xi)=>{
+        x.disabled=true;
+        if(xi===item.a) x.classList.add('good');
+        else if(xi===ci) x.classList.add('bad');
+      });
+      const why=q.querySelector('.why');
+      why.innerHTML=`<b>${right?'Tamang sagot!':'Mali.'}</b> Tamang sagot: ${LETTER[item.a]}. ${item.c[item.a]}. ${item.w}`;
+      why.classList.add('show');
+      if(answered===QS.length) showScore();
+    });
+    box.appendChild(b);
+  });
+  quiz.appendChild(q);
+});
+
+function showScore(){
+  const box=document.getElementById('score');
+  document.getElementById('sc').textContent=score;
+  let msg;
+  if(score===5) msg='Napakahusay! Isa kang tunay na Pang-uri Detective!';
+  else if(score>=3) msg='Magaling! Ipagpatuloy ang iyong pagsasanay!';
+  else msg='Kaya mo iyan! Balikan ang aralin at subukan muli!';
+  document.getElementById('verdict').textContent=msg;
+  box.hidden=false;
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* reflection form */
+document.getElementById('reflect').addEventListener('submit',e=>{
+  e.preventDefault();
+  const fin=document.getElementById('finish');
+  fin.classList.add('show');
+  fin.scrollIntoView({behavior:'smooth',block:'center'});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aralin – Pang-uri</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff5fa2; --pink-soft:#ffd6e8; --purple:#5b2aa6; --purple-soft:#e4d4fb;
+  --green:#1f7a2e; --green-soft:#d9f5c3; --orange:#f58a1f; --yellow-soft:#fff0b8;
+  --blue-soft:#cfe9ff; --teal-soft:#c9f3e6; --ink:#3a2a1a;
+  --font-d:'Baloo 2','Fredoka','Trebuchet MS',sans-serif;
+  --font-b:'Fredoka','Trebuchet MS',sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{color-scheme:light}
+body{
+  font-family:var(--font-b);color:var(--ink);min-height:100vh;
+  background:radial-gradient(circle at 20% 10%,#fff 0,transparent 35%),
+             linear-gradient(180deg,#ffd9ea 0%,#ffeaf4 40%,#fff6fb 70%,#ffd9ea 100%);
+}
+.page{max-width:900px;margin:0 auto;padding:16px 16px 28px}
+img{max-width:100%;display:block}
+:focus-visible{outline:4px solid var(--purple);outline-offset:3px}
+
+/* floating home button */
+.home-fab{
+  position:fixed;top:14px;left:14px;z-index:50;display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-d);font-weight:800;font-size:clamp(15px,2.6vw,20px);text-decoration:none;color:#fff;
+  background:linear-gradient(#8a55d6,#5b2aa6);border:4px solid #fff;border-radius:999px;padding:8px 20px;
+  box-shadow:0 5px 0 rgba(0,0,0,.25);transition:transform .15s,box-shadow .15s;
+}
+.home-fab:hover{transform:translateY(-3px);box-shadow:0 8px 0 rgba(0,0,0,.25)}
+.home-fab:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.home-fab svg{width:1em;height:1em;fill:#ffd54a;flex:0 0 auto}
+
+/* header */
+.hero{display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;gap:8px;text-align:center}
+.hero img{width:100%;aspect-ratio:1/1;object-fit:contain}
+.hero h1{font-family:var(--font-d);font-weight:800;line-height:.95;font-size:clamp(30px,7vw,64px)}
+.hero h1 .t1{display:block;color:var(--purple);-webkit-text-stroke:2px #fff;paint-order:stroke fill;font-size:.66em}
+.hero h1 .t2{display:block;color:var(--pink);-webkit-text-stroke:3px #fff;paint-order:stroke fill;text-shadow:0 5px 0 var(--purple)}
+.ribbon{
+  display:block;width:fit-content;margin:6px auto 18px;padding:6px 38px;
+  background:linear-gradient(#ffd54a,#f7b500);color:var(--ink);font-family:var(--font-d);
+  font-weight:700;font-size:clamp(16px,3.4vw,26px);border:3px solid #fff;border-radius:6px;
+  box-shadow:0 4px 0 #c88a00;clip-path:polygon(0 0,100% 0,96% 50%,100% 100%,0 100%,4% 50%);
+}
+
+/* pills */
+.pill{
+  display:block;width:fit-content;margin:26px auto 12px;padding:4px 34px;border-radius:999px;
+  font-family:var(--font-d);font-weight:800;font-size:clamp(20px,4.2vw,34px);border:4px solid #fff;
+  box-shadow:0 4px 0 rgba(0,0,0,.12);text-align:center;
+}
+.pill.purple{background:linear-gradient(#8a55d6,#5b2aa6);color:#fff}
+.pill.green{background:var(--green-soft);color:var(--green);border-color:#7bc85a;border-style:dashed}
+.pill.pinkp{background:var(--pink-soft);color:var(--purple);border-color:#ff8cc0}
+.spark{display:inline-block;width:.8em;height:.8em;vertical-align:middle;fill:#ffd54a}
+
+/* generic card */
+.card{
+  background:#fff;border:3px solid #b48df0;border-radius:26px;padding:20px 22px;
+  box-shadow:0 5px 0 rgba(0,0,0,.10);margin:14px 0;font-size:clamp(15px,2.6vw,20px);line-height:1.5;
+}
+.card p+p{margin-top:10px}
+.card b{color:var(--purple)}
+ul.clean{list-style:none;padding:0;margin:8px 0}
+ul.clean li{padding-left:1.6em;position:relative;margin:4px 0}
+ul.clean li::before{content:"";position:absolute;left:.2em;top:.55em;width:.7em;height:.7em;border-radius:50%;background:var(--pink)}
+.note{
+  background:#fff8d6;border:3px dashed #f7c85a;border-radius:22px;padding:14px 18px;margin:14px 0;
+  font-size:clamp(15px,2.6vw,20px);line-height:1.45;
+}
+.note b{color:var(--orange)}
+
+/* type blocks */
+.tblock{display:grid;grid-template-columns:170px 1fr;gap:16px;align-items:center;
+  border-radius:26px;border:3px solid;padding:16px;margin:18px 0;box-shadow:0 5px 0 rgba(0,0,0,.10)}
+.tblock img{width:100%;aspect-ratio:1/1;object-fit:contain}
+.tblock h3{font-family:var(--font-d);font-size:clamp(20px,3.6vw,30px);margin-bottom:6px}
+.tblock p{font-size:clamp(15px,2.6vw,20px);line-height:1.45}
+.tblock ul.clean li::before{background:currentColor}
+.tA{background:#ffe1ee;border-color:#ff8cc0}.tA h3{color:var(--pink)}
+.tB{background:var(--yellow-soft);border-color:#f7c85a}.tB h3{color:var(--orange)}
+.tC{background:var(--purple-soft);border-color:#b48df0}.tC h3{color:var(--purple)}
+
+/* comparison table */
+.cmp{width:100%;border-collapse:separate;border-spacing:0;margin:10px 0;font-size:clamp(14px,2.4vw,18px)}
+.cmp th{font-family:var(--font-d);padding:10px;border:3px solid #79b6ee}
+.cmp th:first-child{background:#ffe1ee;color:var(--pink);border-color:#ff8cc0}
+.cmp th:last-child{background:var(--green-soft);color:var(--green);border-color:#8ad05c}
+.cmp td{padding:10px;border:3px solid #cfe9ff;background:#f4faff;vertical-align:top}
+.cmp td:last-child{border-color:#b9e6a8;background:#f2fce8}
+
+/* CTA buttons */
+.cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:26px 0 8px}
+.cta a{
+  font-family:var(--font-d);font-weight:800;font-size:clamp(18px,3vw,26px);text-decoration:none;color:#fff;
+  border:4px solid #fff;border-radius:999px;padding:10px 40px;
+  transition:transform .15s,box-shadow .15s;
+}
+.cta a.pink{background:linear-gradient(#ff7ab5,#ff5fa2);box-shadow:0 6px 0 #c93d7a}
+.cta a.purple{background:linear-gradient(#8a55d6,#5b2aa6);box-shadow:0 6px 0 #3a1a70}
+.cta a:hover{transform:translateY(-3px)}
+.cta a:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+
+@media (max-width:640px){
+  .tblock{grid-template-columns:1fr;text-align:center}
+  .tblock img{max-width:150px;margin:0 auto}
+  .tblock ul.clean{text-align:left}
+  .home-fab{top:10px;left:10px;padding:6px 14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="sp" viewBox="0 0 24 24"><path d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M12 2 1 12h3v9h6v-6h4v6h6v-9h3z"/></symbol>
+</svg>
+
+<a class="home-fab" href="index.html" aria-label="Bumalik sa Home Page"><svg><use href="#home"/></svg>Home</a>
+
+<main class="page">
+  <header class="hero">
+    <img data-img src="images/girl-reading.png" alt="Batang babaeng nagbabasa">
+    <h1><span class="t1">MGA ARALIN –</span><span class="t2">ARALIN</span></h1>
+    <img data-img src="images/boy-thumbs-up.png" alt="Batang lalaki na nakataas ang hinlalaki">
+  </header>
+  <span class="ribbon">Tuklasin ang mga Salitang Naglalarawan!</span>
+
+  <span class="pill purple">Ano ang Pang-uri?</span>
+  <section class="card">
+    <p>Ang <b>pang-uri</b> ay bahagi ng pananalita na naglalarawan o nagbibigay ng karagdagang impormasyon tungkol sa pangngalan at panghalip. Ginagamit ito upang ilarawan ang katangian, kulay, hugis, laki, lasa, amoy, bilang, at iba pang katangian ng tao, hayop, bagay, lugar, o pangyayari.</p>
+    <p>Sa madaling salita, ang pang-uri ay salitang tumutulong upang mas maging malinaw at makulay ang ating mga pangungusap.</p>
+  </section>
+
+  <span class="pill green"><svg class="spark"><use href="#sp"/></svg> Mga Halimbawa <svg class="spark"><use href="#sp"/></svg></span>
+  <section class="card">
+    <ul class="clean">
+      <li>Ang bata ay <b>masipag</b>.</li>
+      <li>Ang bulaklak ay <b>mabango</b>.</li>
+      <li>Ang mangga ay <b>matamis</b>.</li>
+      <li>Ang aso ay <b>maliit</b>.</li>
+      <li>Ang silid-aralan ay <b>malinis</b>.</li>
+    </ul>
+    <p style="margin-top:12px"><b>Pansinin:</b> Ang mga salitang masipag, mabango, matamis, maliit, at malinis ay mga pang-uri dahil inilalarawan nila ang tao, bagay, hayop, o lugar.</p>
+  </section>
+
+  <span class="pill pinkp"><svg class="spark"><use href="#sp"/></svg> Mga Layunin sa Pagkatuto <svg class="spark"><use href="#sp"/></svg></span>
+  <section class="card">
+    <p>Pagkatapos pag-aralan ang aralin, ang mga mag-aaral ay inaasahang:</p>
+    <ul class="clean">
+      <li>Maipaliwanag ang kahulugan ng pang-uri.</li>
+      <li>Matukoy ang mga pang-uri sa loob ng pangungusap.</li>
+      <li>Makilala ang iba't ibang uri ng pang-uri.</li>
+      <li>Magamit nang wasto ang mga pang-uri sa pagbuo ng pangungusap.</li>
+      <li>Maipakita ang pag-unawa sa pang-uri sa pamamagitan ng mga gawaing pampagkatuto.</li>
+    </ul>
+  </section>
+
+  <span class="pill purple">Mga Uri ng Pang-uri</span>
+  <p style="text-align:center;font-size:clamp(15px,2.6vw,20px);margin-top:8px">May tatlong uri ng pang-uri na ating pag-aaralan.</p>
+
+  <article class="tblock tA">
+    <img data-img src="images/panlarawan.png" alt="Nakangiting batang babae">
+    <div>
+      <h3>A. Pang-uring Panlarawan</h3>
+      <p>Ito ay pang-uring naglalarawan ng katangian o kalagayan ng tao, hayop, bagay, lugar, o pangyayari.</p>
+      <p style="margin-top:8px"><b>Mga halimbawa:</b></p>
+      <ul class="clean">
+        <li>Mabait na bata</li>
+        <li>Magandang bulaklak</li>
+        <li>Malinis na bahay</li>
+        <li>Matamis na mangga</li>
+        <li>Mabilis na kabayo</li>
+      </ul>
+      <p style="margin-top:8px"><b>Halimbawa sa pangungusap:</b></p>
+      <ul class="clean">
+        <li>Si Ana ay isang <b>mabait</b> na bata.</li>
+        <li>Ang rosas ay <b>pula</b> at <b>mabango</b>.</li>
+      </ul>
+      <p style="margin-top:8px"><b>Paliwanag:</b> Ang mga salitang mabait, pula, at mabango ay naglalarawan ng katangian ng tao at bulaklak.</p>
+    </div>
+  </article>
+
+  <article class="tblock tB">
+    <img data-img src="images/pamilang.png" alt="Tatlong mansanas">
+    <div>
+      <h3>B. Pang-uring Pamilang</h3>
+      <p>Ito ay pang-uring nagsasaad ng bilang, dami, o pagkakasunod-sunod ng pangngalan.</p>
+      <p style="margin-top:8px"><b>Mga halimbawa:</b></p>
+      <ul class="clean">
+        <li>Tatlong lapis</li>
+        <li>Limang aklat</li>
+        <li>Sampung kendi</li>
+        <li>Ikalawang pangkat</li>
+        <li>Unang gantimpala</li>
+      </ul>
+      <p style="margin-top:8px"><b>Halimbawa sa pangungusap:</b></p>
+      <ul class="clean">
+        <li>May <b>tatlong</b> mangga sa mesa.</li>
+        <li>Si Carlo ang <b>unang</b> nakatapos ng gawain.</li>
+      </ul>
+      <p style="margin-top:8px"><b>Paliwanag:</b> Ang mga salitang tatlong at unang ay nagsasaad ng dami at pagkakasunod-sunod.</p>
+      <p style="margin-top:12px"><b>Ilang halimbawa ng pang-uring pamilang:</b></p>
+      <ul class="clean">
+        <li><b>Patakaran:</b> isa, dalawa, tatlo, apat. Nagsasaad ng tiyak na bilang.</li>
+        <li><b>Panunuran:</b> una, ikalawa, ikatlo. Nagsasaad ng pagkakasunod-sunod.</li>
+        <li><b>Pamahagi:</b> kalahati, sangkapat. Nagsasaad ng bahagi ng isang kabuuan.</li>
+        <li><b>Palansak:</b> tig-iisa, tig-dadalawa. Nagsasaad ng pangkat o pagkakahati-hati ng bilang.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="tblock tC">
+    <img data-img src="images/pantangi.png" alt="Watawat ng Pilipinas">
+    <div>
+      <h3>C. Pang-uring Pantangi</h3>
+      <p>Ito ay pang-uring nagmula sa pangngalang pantangi. Ginagamit ito upang ilarawan ang isang tao, bagay, pagkain, kultura, o lugar batay sa pinagmulan o kaugnayan nito sa isang tiyak na pangalan.</p>
+      <p style="margin-top:8px"><b>Mga halimbawa:</b></p>
+      <ul class="clean">
+        <li>Kulturang Pilipino</li>
+        <li>Pagkaing Ilokano</li>
+        <li>Sayaw na Tinikling</li>
+        <li>Produktong Cebuano</li>
+        <li>Kulturang Tsino</li>
+      </ul>
+      <p style="margin-top:8px"><b>Halimbawa sa pangungusap:</b></p>
+      <ul class="clean">
+        <li>Ipinagmamalaki natin ang kulturang <b>Pilipino</b>.</li>
+        <li>Masarap ang mga pagkaing <b>Ilokano</b>.</li>
+      </ul>
+      <p style="margin-top:8px"><b>Paliwanag:</b> Ang mga salitang Pilipino at Ilokano ay nagmula sa mga pangngalang pantangi at ginagamit upang ilarawan ang kultura at pagkain na may kaugnayan sa isang partikular na pangkat o lugar.</p>
+    </div>
+  </article>
+
+  <span class="pill pinkp"><svg class="spark"><use href="#sp"/></svg> Paano Ginagamit ang Pang-uri? <svg class="spark"><use href="#sp"/></svg></span>
+  <section class="card">
+    <p>Ginagamit ang pang-uri upang magbigay ng mas malinaw na paglalarawan sa isang pangngalan o panghalip. Tingnan ang pagkakaiba:</p>
+    <table class="cmp">
+      <tr><th>Walang Pang-uri</th><th>May Pang-uri</th></tr>
+      <tr><td>Kumain ako ng mangga.</td><td>Kumain ako ng <b>matamis</b> na mangga.</td></tr>
+      <tr><td>Nakita ko ang aso.</td><td>Nakita ko ang <b>maliit</b> na aso.</td></tr>
+      <tr><td>Pumasok ang bata.</td><td>Pumasok ang <b>masipag</b> na bata.</td></tr>
+    </table>
+    <p style="margin-top:12px"><b>Paliwanag:</b> Mapapansin na mas nagiging malinaw ang pangungusap kapag gumagamit tayo ng pang-uri. Mas nalalaman natin kung ano ang katangian ng mangga, aso, at bata.</p>
+  </section>
+
+  <span class="pill green"><svg class="spark"><use href="#sp"/></svg> Bakit Mahalaga ang Pang-uri? <svg class="spark"><use href="#sp"/></svg></span>
+  <section class="card">
+    <ul class="clean">
+      <li><b>Nagbibigay ito ng malinaw na paglalarawan.</b> Mas madaling mailarawan sa isip ang tao, hayop, bagay, at lugar.</li>
+      <li><b>Nagpapaganda ito ng pangungusap.</b> Nagiging mas kawili-wili at makabuluhan ang ating mga sinasabi at sinusulat.</li>
+      <li><b>Tumutulong ito sa pagpapahayag ng ideya.</b> Mas naipapaliwanag natin nang maayos ang ating iniisip.</li>
+      <li><b>Nagdaragdag ito ng detalye.</b> Mas nauunawaan ng nakikinig o nagbabasa ang ating mensahe.</li>
+    </ul>
+  </section>
+
+  <div class="note">
+    <p><b>Tandaan!</b> "Ang pang-uri ay salitang naglalarawan na nagbibigay-kulay at kahulugan sa ating mga pangungusap!" Ginagamit ito upang ilarawan ang pangngalan at panghalip. Sa pamamagitan nito, mas nagiging malinaw at makabuluhan ang ating mga sinasabi at sinusulat.</p>
+  </div>
+
+  <div class="cta">
+    <a class="pink" href="gawain.html">Sagutan ang mga Tanong</a>
+    <a class="purple" href="index.html">Bumalik sa Home Page</a>
+  </div>
+</main>
+
+<script>
+const PH='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect x="6" y="6" width="188" height="188" rx="28" fill="#ffffff" fill-opacity=".55" stroke="#b48df0" stroke-width="4" stroke-dasharray="10 8"/><circle cx="70" cy="75" r="16" fill="#b48df0"/><path d="M24 160l50-52 32 32 26-24 44 44z" fill="#b48df0"/></svg>');
+document.querySelectorAll('img[data-img]').forEach(i=>{i.onerror=()=>{i.onerror=null;i.src=PH}});
+</script>
+</body>
+</html>

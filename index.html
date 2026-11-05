@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mga Aralin – Pang-uri</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff5fa2; --pink-soft:#ffd6e8; --purple:#5b2aa6; --purple-soft:#e4d4fb;
+  --green:#1f7a2e; --green-soft:#d9f5c3; --orange:#f58a1f; --yellow-soft:#fff0b8;
+  --blue-soft:#cfe9ff; --teal-soft:#c9f3e6; --ink:#3a2a1a;
+  --font-d:'Baloo 2','Fredoka','Trebuchet MS',sans-serif;
+  --font-b:'Fredoka','Trebuchet MS',sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{color-scheme:light}
+body{
+  font-family:var(--font-b);color:var(--ink);min-height:100vh;
+  background:radial-gradient(circle at 20% 10%,#fff 0,transparent 35%),
+             linear-gradient(180deg,#ffd9ea 0%,#ffeaf4 40%,#fff6fb 70%,#ffd9ea 100%);
+}
+.page{max-width:900px;margin:0 auto;padding:16px 16px 28px}
+img{max-width:100%;display:block}
+:focus-visible{outline:4px solid var(--purple);outline-offset:3px}
+
+/* header */
+.hero{display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;gap:8px;text-align:center}
+.hero img{width:100%;aspect-ratio:1/1;object-fit:contain}
+.hero h1{font-family:var(--font-d);font-weight:800;line-height:.95;font-size:clamp(34px,8vw,76px)}
+.hero h1 .t1{display:block;color:var(--purple);-webkit-text-stroke:2px #fff;paint-order:stroke fill;font-size:.7em}
+.hero h1 .t2{display:block;color:var(--pink);-webkit-text-stroke:3px #fff;paint-order:stroke fill;text-shadow:0 5px 0 var(--purple)}
+.ribbon{
+  display:block;width:fit-content;margin:6px auto 18px;padding:6px 38px;
+  background:linear-gradient(#ffd54a,#f7b500);color:var(--ink);font-family:var(--font-d);
+  font-weight:700;font-size:clamp(16px,3.4vw,26px);border:3px solid #fff;border-radius:6px;
+  box-shadow:0 4px 0 #c88a00;clip-path:polygon(0 0,100% 0,96% 50%,100% 100%,0 100%,4% 50%);
+}
+
+/* pills */
+.pill{
+  display:block;width:fit-content;margin:0 auto;padding:4px 34px;border-radius:999px;
+  font-family:var(--font-d);font-weight:800;font-size:clamp(22px,4.6vw,38px);border:4px solid #fff;
+  box-shadow:0 4px 0 rgba(0,0,0,.12);text-align:center;
+}
+.pill.purple{background:linear-gradient(#8a55d6,#5b2aa6);color:#fff}
+.pill.green{background:var(--green-soft);color:var(--green);border-color:#7bc85a;border-style:dashed}
+.pill.pinkp{background:var(--pink-soft);color:var(--purple);border-color:#ff8cc0}
+
+/* definition */
+.define{display:grid;grid-template-columns:110px 1fr 110px;align-items:center;gap:8px;margin:-10px 0 20px}
+.define img{width:100%;aspect-ratio:1/1;object-fit:contain}
+.cloud{
+  background:#eaf4ff;border:3px dashed #9cc4ee;border-radius:40px;padding:34px 22px 22px;
+  text-align:center;font-size:clamp(17px,3.4vw,28px);font-weight:500;line-height:1.35;
+}
+.cloud b{color:var(--purple)}
+
+/* types */
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 26px}
+.type{border-radius:24px;border:3px solid;padding:0 12px 16px;text-align:center;margin-top:24px;display:flex;flex-direction:column;align-items:center}
+.type .num{
+  width:48px;height:48px;border-radius:50%;background:#fff;border:4px solid;display:grid;place-items:center;
+  font-family:var(--font-d);font-weight:800;font-size:28px;margin-top:-24px;
+}
+.type h3{font-family:var(--font-d);font-size:clamp(17px,3.2vw,26px);padding:0 16px;border-radius:999px;margin:8px 0;font-weight:700}
+.type .pic{width:100%;max-width:170px;aspect-ratio:1/1;object-fit:contain;margin:4px 0}
+.type p{font-size:clamp(14px,2.4vw,19px);line-height:1.25;margin-bottom:8px}
+.type .ex{border-radius:999px;padding:0 14px;font-weight:600;font-size:clamp(13px,2.2vw,17px);margin-bottom:4px}
+.type .exw{font-size:clamp(14px,2.4vw,19px);font-weight:500}
+.t1c{background:#ffe1ee;border-color:#ff8cc0}.t1c .num{border-color:var(--pink);color:var(--pink)}.t1c h3,.t1c .ex{background:#ffb3d4}
+.t2c{background:var(--yellow-soft);border-color:#f7c85a}.t2c .num{border-color:var(--orange);color:var(--orange)}.t2c h3,.t2c .ex{background:#ffd88a}
+.t3c{background:var(--purple-soft);border-color:#b48df0}.t3c .num{border-color:var(--purple);color:var(--purple)}.t3c h3,.t3c .ex{background:#cdb3f5}
+
+/* menu buttons (links to other files) */
+.menu{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 22px}
+.mbtn{
+  border:3px solid;border-radius:22px;padding:14px 8px 12px;text-align:center;color:var(--ink);text-decoration:none;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  box-shadow:0 5px 0 rgba(0,0,0,.14);transition:transform .15s,box-shadow .15s;
+}
+.mbtn:hover{transform:translateY(-4px);box-shadow:0 9px 0 rgba(0,0,0,.14)}
+.mbtn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.14)}
+.mbtn img{width:80%;max-width:110px;aspect-ratio:1/1;object-fit:contain}
+.mbtn strong{font-family:var(--font-d);font-size:clamp(17px,3vw,24px);line-height:1}
+.mbtn span{font-size:clamp(13px,2.2vw,17px);line-height:1.15}
+.m1{background:#d8f5b5;border-color:#8ad05c}.m2{background:var(--blue-soft);border-color:#79b6ee}
+.m3{background:#ffdca8;border-color:#f6a93b}.m4{background:var(--teal-soft);border-color:#6fd3b6}
+
+.tandaan{
+  display:grid;grid-template-columns:90px 1fr 90px;align-items:center;gap:8px;
+  background:linear-gradient(#8a55d6,#5b2aa6);border:4px solid #fff;border-radius:32px;
+  padding:12px 16px;color:#fff;text-align:center;font-size:clamp(16px,3vw,25px);font-weight:500;box-shadow:0 5px 0 rgba(0,0,0,.15);
+}
+.tandaan b{color:#ffd54a}
+.tandaan img{width:100%;aspect-ratio:1/1;object-fit:contain}
+.spark{display:inline-block;width:.8em;height:.8em;vertical-align:middle;fill:#ffd54a}
+
+@media (max-width:640px){
+  .define{grid-template-columns:70px 1fr 70px}
+  .types{grid-template-columns:1fr;gap:26px}
+  .menu{grid-template-columns:repeat(2,1fr)}
+  .tandaan{grid-template-columns:56px 1fr 56px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- Small sparkle shape (drawn in SVG, not a picture file) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="sp" viewBox="0 0 24 24"><path d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z"/></symbol>
+</svg>
+
+<main class="page">
+  <header class="hero">
+    <!-- IMAGE: girl reading -->
+    <img data-img src="images/girl-reading.png" alt="Batang babaeng nagbabasa">
+    <h1><span class="t1">MGA ARALIN –</span><span class="t2">PANG-URI</span></h1>
+    <!-- IMAGE: boy thumbs up -->
+    <img data-img src="images/boy-thumbs-up.png" alt="Batang lalaki na nakataas ang hinlalaki">
+  </header>
+  <span class="ribbon">Mga salitang naglalarawan!</span>
+
+  <span class="pill purple" style="position:relative;z-index:1">Ano ang Pang-uri?</span>
+  <section class="define">
+    <!-- IMAGE: cat -->
+    <img data-img src="images/cat.png" alt="Pusa">
+    <p class="cloud">Ang <b>pang-uri</b> ay salitang naglalarawan sa tao, hayop, bagay, lugar, o pangyayari.</p>
+    <!-- IMAGE: dog -->
+    <img data-img src="images/dog.png" alt="Aso">
+  </section>
+
+  <span class="pill green"><svg class="spark"><use href="#sp"/></svg> Mga Uri ng Pang-uri <svg class="spark"><use href="#sp"/></svg></span>
+  <section class="types">
+    <article class="type t1c">
+      <div class="num">1</div><h3>Panlarawan</h3>
+      <!-- IMAGE: smiling girl -->
+      <img class="pic" data-img src="images/panlarawan.png" alt="Nakangiting batang babae">
+      <p>Naglalarawan ng katangian.</p>
+      <div class="ex">Halimbawa:</div>
+      <div class="exw">mabait, maganda, malinis.</div>
+    </article>
+    <article class="type t2c">
+      <div class="num">2</div><h3>Pamilang</h3>
+      <!-- IMAGE: three apples -->
+      <img class="pic" data-img src="images/pamilang.png" alt="Tatlong mansanas">
+      <p>Nagsasaad ng bilang o dami.</p>
+      <div class="ex">Halimbawa:</div>
+      <div class="exw">tatlo, sampu, marami.</div>
+    </article>
+    <article class="type t3c">
+      <div class="num">3</div><h3>Pantangi</h3>
+      <!-- IMAGE: Philippine flag -->
+      <img class="pic" data-img src="images/pantangi.png" alt="Watawat ng Pilipinas">
+      <p>Nagmula sa pangngalang pantangi.</p>
+      <div class="ex">Halimbawa:</div>
+      <div class="exw">pagkaing Ilokano, kulturang Pilipino.</div>
+    </article>
+  </section>
+
+  <span class="pill pinkp"><svg class="spark"><use href="#sp"/></svg> Subukan Natin! <svg class="spark"><use href="#sp"/></svg></span>
+
+  <!-- Each card is a link to its own file. Create these files in the same folder as index.html -->
+  <nav class="menu" aria-label="Mga pahina">
+    <a class="mbtn m1" href="aralin.html">
+      <!-- IMAGE: open book -->
+      <img data-img src="images/icon-aralin.png" alt=""><strong>Aralin</strong><span>Basahin at alamin</span>
+    </a>
+    <a class="mbtn m2" href="bidyo.html">
+      <!-- IMAGE: television -->
+      <img data-img src="images/icon-bidyo.png" alt=""><strong>Bidyo</strong><span>Panoorin at unawain</span>
+    </a>
+    <a class="mbtn m3" href="gawain.html">
+      <!-- IMAGE: notebook and pencil -->
+      <img data-img src="images/icon-gawain.png" alt=""><strong>Mga Gawain</strong><span>Sagutan ang pagsasanay</span>
+    </a>
+    <a class="mbtn m4" href="pagsusulit.html">
+      <!-- IMAGE: trophy -->
+      <img data-img src="images/icon-pagsusulit.png" alt=""><strong>Pagsusulit</strong><span>Subukin ang kaalaman</span>
+    </a>
+  </nav>
+
+  <footer class="tandaan">
+    <!-- IMAGE: smiling star -->
+    <img data-img src="images/star.png" alt="">
+    <p><b>Tandaan:</b> Ang pang-uri ay nagbibigay ng linaw at kulay sa ating mga pangungusap!</p>
+    <!-- IMAGE: rainbow -->
+    <img data-img src="images/rainbow.png" alt="">
+  </footer>
+</main>
+
+<script>
+/* Dashed placeholder shows for any picture file that is not in /images yet */
+const PH='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect x="6" y="6" width="188" height="188" rx="28" fill="#ffffff" fill-opacity=".55" stroke="#b48df0" stroke-width="4" stroke-dasharray="10 8"/><circle cx="70" cy="75" r="16" fill="#b48df0"/><path d="M24 160l50-52 32 32 26-24 44 44z" fill="#b48df0"/></svg>');
+document.querySelectorAll('img[data-img]').forEach(i=>{i.onerror=()=>{i.onerror=null;i.src=PH}});
+</script>
+</body>
+</html>
